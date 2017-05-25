@@ -6,6 +6,11 @@ class UsersController < ApplicationController
   def new
   end
 
+  def total
+      @user = User.all
+      render json: @user.count
+  end
+
   def show
       @user = User.find(params[:id])
       render json: @user
@@ -14,6 +19,13 @@ class UsersController < ApplicationController
   def edit
       @user = User.find(params[:id])
   end
+
+  def update
+       @user = User.find(params[:id])
+       @user.update(name: params[:name])
+       @user.save
+       redirect_to "/users"
+   end
 
   def create
       user = User.new(name: params[:name])
@@ -26,6 +38,4 @@ class UsersController < ApplicationController
       end
   end
 
-  def total
-  end
 end
